@@ -4,7 +4,7 @@ import Chat from "./component/Chat";
 import "./App.css";
 import { useState,useEffect } from "react";
 
-const socket = io.connect("http://localhost:5000");
+const socket = io.connect(["http://localhost:5000","https://chat-backend-9dua.onrender.com"]);
 
 function App() {
   const [username, setUsername] = useState("");
