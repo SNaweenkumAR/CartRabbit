@@ -29,6 +29,11 @@ io.on("connection", (socket) => {
     socket.on("disconnect", () => {
         console.log(`User disconnected: ${socket.id}`);
     });
+    socket.on("leave_room", (room) => {
+        socket.leave(room);
+        console.log(`User ${socket.id} left room: ${room}`);
+    });
+    
 });
 
 server.listen(5000, () => console.log("Server running on port 5000"));

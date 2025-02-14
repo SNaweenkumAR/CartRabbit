@@ -21,15 +21,27 @@ function Chat({ socket, username, room, leaveChat }) {
     }
   };
 
-  useEffect(() => {
-    socket.on("receive_message", (data) => {
-      setMessageList((list) => [...list, data]);
-    });
+  // useEffect(() => {
+  //   socket.on("receive_message", (data) => {
+  //     setMessageList((list) => [...list, data]);
+  //   });
 
-    return () => {
-      socket.off("receive_message");
+  //   return () => {
+  //     socket.off("receive_message");
+  //   };
+  // }, [socket]);
+
+  useEffect(() => {
+    const handleReceiveMessage = (data) => {
+      setMessageList((list) => [...list, data]); // Updates the message list for ALL users
     };
-  }, [socket]);
+  
+    socket.on("receive_message", handleReceiveMessage);
+  
+    return () => {
+      socket.off("receive_message", handleReceiveMessage);
+    };
+  }, [socket]); 
 
   return (
     <div className="chatContainer">
