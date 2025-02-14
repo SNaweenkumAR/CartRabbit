@@ -1,7 +1,8 @@
-import React, { useState } from "react";
+
 import io from "socket.io-client";
 import Chat from "./component/Chat";
 import "./App.css";
+import { useState,useEffect } from "react";
 
 const socket = io.connect("http://localhost:5000");
 
@@ -15,6 +16,13 @@ function App() {
       socket.emit("join_room", room);
       setShowChat(true);
     }
+  };
+
+  const leaveChat = () => {
+    socket.emit("leave_room", room); 
+    setShowChat(false); 
+    setUsername(""); 
+    setRoom(""); 
   };
 
   return (
@@ -35,7 +43,7 @@ function App() {
           <button onClick={joinRoom}>Join</button>
         </div>
       ) : (
-        <Chat socket={socket} username={username} room={room} />
+        <Chat socket={socket} username={username} room={room} leaveChat={leaveChat} />
       )}
     </div>
   );

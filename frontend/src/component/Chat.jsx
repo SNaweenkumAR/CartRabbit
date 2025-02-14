@@ -1,7 +1,8 @@
-import React, { useState, useEffect } from "react";
-import "./Chat.css";
 
-function Chat({ socket, username, room }) {
+import "./Chat.css";
+import { useState,useEffect } from "react";
+
+function Chat({ socket, username, room, leaveChat }) {
   const [message, setMessage] = useState("");
   const [messageList, setMessageList] = useState([]);
 
@@ -34,6 +35,7 @@ function Chat({ socket, username, room }) {
     <div className="chatContainer">
       <div className="chatHeader">
         <p>Chat Room: {room}</p>
+        <button className="leaveBtn" onClick={leaveChat}>Leave Chat</button>
       </div>
       <div className="chatBody">
         {messageList.map((msg, index) => (
